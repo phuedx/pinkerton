@@ -3,7 +3,6 @@
 namespace Phuedx\Pinkerton\Test;
 
 require __DIR__ . '/fixtures/dummy-functions.php';
-require __DIR__ . '/fixtures/namespaced-dummy-function.php';
 
 class AgencyTest extends \PHPUnit_Framework_TestCase
 {
