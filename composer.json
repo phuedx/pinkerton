@@ -1,0 +1,21 @@
+{
+    "name": "phuedx/pinkerton",
+    "type": "library",
+    "description": "Emulating Jasmine's `spyOn` function with runkit.",
+    "keywords": ["test", "testing", "spy", "spies"],
+    "homepage": "https://github.com/phuedx/pinkerton",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Smith",
+            "email": "samuel.david.smith@gmail.com",
+            "homepage": "https://github.com/phuedx"
+        }
+    ],
+    "require": {
+        "php": ">= 5.3"
+    },
+    "autoload": {
+        "psr-0": { "Phuedx\\Pinkerton": "src"  }
+    }
+}
