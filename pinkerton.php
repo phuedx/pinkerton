@@ -1,14 +1,25 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/src/main/Phuedx/Pinkerton/Spy.php';
+require_once __DIR__ . '/src/main/Phuedx/Pinkerton/Pinkerton.php';
 
 function spyOn($callable)
 {
-    static $agency;
+    return _pinkerton()->spyOn($callable);
+}
 
-    if ( ! $agency) {
-        $agency = new \Phuedx\Pinkerton\Agency();
+function stopSpyingOn($callable)
+{
+    _pinkerton()->stopSpyingOn($callable);
+}
+
+function _pinkerton()
+{
+    static $pinkerton;
+
+    if ( ! $pinkerton) {
+        $pinkerton = new \Phuedx\Pinkerton\Pinkerton();
     }
 
-    return $agency->investigate($callable);
+    return $pinkerton;
 }
