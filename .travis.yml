@@ -8,5 +8,6 @@ before_script:
   - pear config-set auto_discover 1
   - pear channel-discover pear.phpspec.net
   - pear install phpspec/PHPSpec
+  - phpenv rehash
 
 script: phpspec src/spec --bootstrap src/spec/bootstrap.php
