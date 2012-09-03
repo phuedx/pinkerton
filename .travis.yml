@@ -5,7 +5,8 @@ php:
   - 5.4
 
 before_script:
-    - pear channel-discover pear.phpspec.net
-    - pear install phpspec/PHPSpec
+  - pear config-set audo_discover 1
+  - pear channel-discover pear.phpspec.net
+  - pear install phpspec/PHPSpec
 
 script: phpspec src/spec --bootstrap src/spec/bootstrap.php
