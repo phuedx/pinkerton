@@ -5,6 +5,12 @@ php:
   - 5.4
 
 before_script:
+  # Runkit
+  - git clone https://github.com/zenovich/runkit.git
+  - sh -c "cd runkit && phpize && ./configure && make && sudo make install"
+  - echo "extension=runkit.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
+  # PHPSpec
   - pear config-set auto_discover 1
   - pear channel-discover pear.phpspec.net
   - pear install phpspec/PHPSpec
