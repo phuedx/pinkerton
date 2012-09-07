@@ -1,4 +1,4 @@
-# Pinkerton
+# Pinkerton [![Build Status](https://secure.travis-ci.org/phuedx/pinkerton.png?branch=master)](http://travis-ci.org/phuedx/pinkerton)
 
 Emulating [Jasmine's](http://pivotal.github.com/jasmine/) `spyOn` function with [runkit](https://github.com/zenovich/runkit/).
 
