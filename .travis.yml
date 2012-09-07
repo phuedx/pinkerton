@@ -11,9 +11,7 @@ before_script:
   - echo "extension=runkit.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
   # PHPSpec
-  - pear config-set auto_discover 1
-  - pear channel-discover pear.phpspec.net
-  - pear install phpspec/PHPSpec
-  - phpenv rehash
+  - git clone https://github.com/phpspec/phpspec.git
+  - sh -c "cd phpspec && php vendor/vendors.php"
 
-script: phpspec src/spec --bootstrap src/spec/bootstrap.php
+script: php phpspec/scripts/phpspec.php src/spec --bootstrap src/spec/bootstrap.php
