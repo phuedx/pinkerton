@@ -39,4 +39,4 @@ To spy on the function *F*:
 
 ## License
 
-**Pinkerton** is licensed under the MIT license and is copyright (c) 2012 Sam Smith. See the LICENSE file for full copyright and license information.
+**Pinkerton** is licensed under the MIT license and is copyright (c) 2012-2013 Sam Smith. See the LICENSE file for full copyright and license information.
