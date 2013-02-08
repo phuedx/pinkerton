@@ -10,8 +10,8 @@ before_script:
   - sh -c "cd runkit && phpize && ./configure && make && sudo make install"
   - echo "extension=runkit.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
-  # PHPSpec
-  - git clone https://github.com/phpspec/phpspec.git
-  - sh -c "cd phpspec && php vendor/vendors.php"
+  # Composer
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev
 
-script: php phpspec/scripts/phpspec.php src/spec --bootstrap src/spec/bootstrap.php
+script: php vendor/bin/phpspec.php src/spec --bootstrap src/spec/bootstrap.php
