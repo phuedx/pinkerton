@@ -90,4 +90,34 @@ class DescribeSpy extends \PHPSpec\Context
         $this->spec($arguments[0])->should->be(1);
         $this->spec($arguments[1])->should->be('two');
     }
+
+    public function itShouldntHaveALastCallByDefault()
+    {
+        $spy = new Spy('microtime');
+
+        $this->spec($spy->lastCall)->should->be(null);
+    }
+
+    public function itShouldHaveALastCallWhenInvoked()
+    {
+        $spy = new Spy('microtime');
+        $spy('three', 4);
+
+        $arguments = $spy->lastCall['args'];
+
+        $this->spec($arguments[0])->should->be('three');
+        $this->spec($arguments[1])->should->be(4);
+    }
+
+    public function itShouldReplaceTheLastCallWhenInvokedMoreThanOnce()
+    {
+        $spy = new Spy('microtime');
+        $spy(5, 'six');
+        $spy('seven', 8);
+
+        $arguments = $spy->lastCall['args'];
+
+        $this->spec($arguments[0])->should->be('seven');
+        $this->spec($arguments[1])->should->be(8);
+    }
 }
