@@ -48,6 +48,8 @@ class Spy
     public function andCallThrough()
     {
         $this->callThrough = true;
+
+        return $this;
     }
 
     public function andCallFake($fake)
@@ -57,5 +59,7 @@ class Spy
         }
 
         $this->fake = $fake;
+
+        return $this;
     }
 }
