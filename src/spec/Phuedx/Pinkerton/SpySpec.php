@@ -120,4 +120,18 @@ class DescribeSpy extends \PHPSpec\Context
         $this->spec($arguments[0])->should->be('seven');
         $this->spec($arguments[1])->should->be(8);
     }
+
+    public function itShouldProvideAFluentInterface()
+    {
+        $spy = new Spy('microtime');
+
+        // `Phuedx\Pinkerton\Spy` is callable
+        $this->spec(function () use ($spy) {
+            return $spy->andCallThrough();
+        })->should->be($spy);
+
+        $this->spec(function () use ($spy) {
+            return $spy->andCallFake(function () {});
+        })->should->be($spy);
+    }
 }
