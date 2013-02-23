@@ -6,7 +6,7 @@ class Spy
 {
     public $callCount;
     public $calls;
-    public $lastCall;
+    public $mostRecentCall;
     private $callable;
     private $callThrough;
     private $fake;
@@ -32,7 +32,7 @@ class Spy
             'args' => $arguments,
         );
         $this->calls[] = $call;
-        $this->lastCall = $call;
+        $this->mostRecentCall = $call;
 
         if ($this->callThrough) {
             return call_user_func_array($this->callable, $arguments); 
