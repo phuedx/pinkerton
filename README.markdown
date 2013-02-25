@@ -1,41 +1,35 @@
 # Pinkerton [![Build Status](https://secure.travis-ci.org/phuedx/pinkerton.png?branch=master)](http://travis-ci.org/phuedx/pinkerton)
 
-Emulating [Jasmine's](http://pivotal.github.com/jasmine/) `spyOn` function with [runkit](https://github.com/zenovich/runkit/).
+So you’re using a function in your code. Maybe it’s even an *internal* function. You’re crazy like that. It’s `microtime` isn’t it? You’re writing your tests and you want to make an assertion about how it’s called or stub its behaviour.
 
-## What does it do?
+You should use **Pinkerton**.
+
+**Pinkerton** allows you to spy on or stub the behaviour of functions using the [runkit](https://github.com/zenovich/runkit/) extension wrapped up in a port of [Jasmine's](http://pivotal.github.com/jasmine/) `spyOn` DSL.
+
+## Spyin’
 
 ```php
 <?php
 
-require_once '/path/to/pinkerton.php';
-
-function some_function($someParameter)
+function legacy_function($parameter1)
 {
-    // ...
+    // Do all of the things.
 }
 
-$spy = spyOn('some_function');
-$spy->andCallThrough();
-
-some_function('The wizard quickly jinxed the gnomes before they vaporized.');
-
-var_dump($spy->callCount); // int(1)
-var_dump($spy->calls[0]); // array('The wizard quickly jinxed the gnomes before they vaporized.')
+$spy = spyOn('legacy_function')->andCallThrough();
+$legacyParameter = 1;
+legacy_function($legacyParameter);
+var_dump($spy->mostRecentCall); // [‘args’ => [1]]
 ```
 
-## How does it do it?
+## Stubbin’
 
-To spy on the function *F*:
-
-1. Create a copy *F'* of *F* (using `runkit_function_copy`)
-2. Create a spy *S* that wraps *F'*
-3. Create a new function *F''* that invokes *S*
-4. Replace *F* with *F''* (using `runkit_function_redefine`)
-
-## TODO
-
-* `spyOn($class, $method)`
-* `spyOn($classInstance, $method)`
+```php
+$spy = spyOn('legacy_function')->andCallFake(function() {
+    return false;
+});
+var_dump(legacy_function($legacyParameter)); // false
+```
 
 ## License
 
