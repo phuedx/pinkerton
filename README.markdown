@@ -16,7 +16,7 @@ function legacy_function($parameter1)
     // Do all of the things.
 }
 
-$spy = spyOn(‘legacy_function’)->andCallThrough();
+$spy = spyOn('legacy_function')->andCallThrough();
 $legacyParameter = 1;
 legacy_function($legacyParameter);
 var_dump($spy->mostRecentCall); // [‘args’ => [1]]
@@ -25,7 +25,7 @@ var_dump($spy->mostRecentCall); // [‘args’ => [1]]
 ## Stubbin’
 
 ```php
-$spy = spyOn(‘legacy_function’)->andCallFake(function() {
+$spy = spyOn('legacy_function')->andCallFake(function() {
     return false;
 });
 var_dump(legacy_function($legacyParameter)); // false
