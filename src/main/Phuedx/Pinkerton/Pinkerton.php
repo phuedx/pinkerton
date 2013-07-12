@@ -11,21 +11,21 @@ class Pinkerton
         return self::$investigations[$callable]['spy'];
     }
 
-    public function spyOn($callable)
+    public static function spyOn($callable)
     {
         if (function_exists($callable)) {
-            return $this->spyOnFunction($callable);
+            return self::spyOnFunction($callable);
         }
 
         throw new \InvalidArgumentException("The function or method doesn't exist.");
     }
 
-    public function stopSpyingOn($callable)
+    public static function stopSpyingOn($callable)
     {
-        $this->stopSpyingOnFunction($callable);
+        self::stopSpyingOnFunction($callable);
     }
 
-    private function spyOnFunction($function)
+    private static function spyOnFunction($function)
     {
         $newFunction = uniqid($function);
         runkit_function_copy($function, $newFunction);
@@ -48,7 +48,7 @@ PHP;
         return $spy;
     }
 
-    private function stopSpyingOnFunction($function)
+    private static function stopSpyingOnFunction($function)
     {
         if ( ! isset(self::$investigations[$function])) {
             throw new \InvalidArgumentException("The function or method isn't being spied on.");

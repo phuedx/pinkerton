@@ -3,23 +3,14 @@
 require_once __DIR__ . '/Phuedx/Pinkerton/Spy.php';
 require_once __DIR__ . '/Phuedx/Pinkerton/Pinkerton.php';
 
+use Phuedx\Pinkerton\Pinkerton;
+
 function spyOn($callable)
 {
-    return _pinkerton()->spyOn($callable);
+    return Pinkerton::spyOn($callable);
 }
 
 function stopSpyingOn($callable)
 {
-    _pinkerton()->stopSpyingOn($callable);
-}
-
-function _pinkerton()
-{
-    static $pinkerton;
-
-    if ( ! $pinkerton) {
-        $pinkerton = new \Phuedx\Pinkerton\Pinkerton();
-    }
-
-    return $pinkerton;
+    Pinkerton::stopSpyingOn($callable);
 }
