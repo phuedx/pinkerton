@@ -6,27 +6,17 @@ class Pinkerton
 {
     private static $investigations = array();
 
-    public static function getSpy($callable)
+    public static function getSpy($function)
     {
-        return self::$investigations[$callable]['spy'];
+        return self::$investigations[$function]['spy'];
     }
 
-    public static function spyOn($callable)
+    public static function spyOn($function)
     {
-        if (function_exists($callable)) {
-            return self::spyOnFunction($callable);
+        if ( ! function_exists($function)) {
+            throw new \InvalidArgumentException("The {$function} function doesn't exist.");
         }
 
-        throw new \InvalidArgumentException("The function or method doesn't exist.");
-    }
-
-    public static function stopSpyingOn($callable)
-    {
-        self::stopSpyingOnFunction($callable);
-    }
-
-    private static function spyOnFunction($function)
-    {
         $newFunction = uniqid($function);
         runkit_function_copy($function, $newFunction);
 
@@ -48,10 +38,10 @@ PHP;
         return $spy;
     }
 
-    private static function stopSpyingOnFunction($function)
+    public static function stopSpyingOn($function)
     {
         if ( ! isset(self::$investigations[$function])) {
-            throw new \InvalidArgumentException("The function or method isn't being spied on.");
+            throw new \InvalidArgumentException("The {$function} function isn't being spied on.");
         }
 
         $investigation = self::$investigations[$function];

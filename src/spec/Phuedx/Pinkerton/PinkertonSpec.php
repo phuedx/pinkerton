@@ -11,8 +11,8 @@ class DescribePinkerton extends \PHPSpec\Context
     public function itShouldThrowWhenTryingToSpyOnAFunctionThatDoesntExist()
     {
         $this->spec(function () {
-            Pinkerton::spyOn("a function doesn't exist.");
-        })->should->throwException('InvalidArgumentException', "The function or method doesn't exist.");
+            Pinkerton::spyOn('dummyFunction0');
+        })->should->throwException('InvalidArgumentException', "The dummyFunction0 function doesn't exist.");
     }
 
     public function itShouldSpyOnAFunction()
@@ -40,7 +40,7 @@ class DescribePinkerton extends \PHPSpec\Context
     {
         $this->spec(function () {
             Pinkerton::stopSpyingOn('dummyFunction4');
-        })->should->throwException('InvalidArgumentException', "The function or method isn't being spied on.");
+        })->should->throwException('InvalidArgumentException', "The dummyFunction4 function isn't being spied on.");
     }
 
     public function itShouldStopSpyingOnAFunction()
