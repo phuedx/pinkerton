@@ -11,15 +11,13 @@ class DescribePinkerton extends \PHPSpec\Context
     public function itShouldThrowWhenTryingToSpyOnAFunctionThatDoesntExist()
     {
         $this->spec(function () {
-            $pinkerton = new Pinkerton();
-            $pinkerton->spyOn("a function doesn't exist.");
-        })->should->throwException('InvalidArgumentException', "The function or method doesn't exist.");
+            Pinkerton::spyOn('dummyFunction0');
+        })->should->throwException('InvalidArgumentException', "The dummyFunction0 function doesn't exist.");
     }
 
     public function itShouldSpyOnAFunction()
     {
-        $pinkerton = new Pinkerton();
-        $spy = $pinkerton->spyOn('dummyFunction1');
+        $spy = Pinkerton::spyOn('dummyFunction1');
 
         dummyFunction1();
 
@@ -28,8 +26,7 @@ class DescribePinkerton extends \PHPSpec\Context
 
     public function itShouldPassTheFunctionArgumentsThroughToTheSpy()
     {
-        $pinkerton = new Pinkerton();
-        $spy = $pinkerton->spyOn('dummyFunction2');
+        $spy = Pinkerton::spyOn('dummyFunction2');
 
         dummyFunction2('foo', 'bar');
 
@@ -42,16 +39,14 @@ class DescribePinkerton extends \PHPSpec\Context
     public function itShouldThrowWhenTryingToStopSpyingOnAFunctionThatIsntBeingSpiedOn()
     {
         $this->spec(function () {
-            $pinkerton = new Pinkerton();
-            $pinkerton->stopSpyingOn('dummyFunction4');
-        })->should->throwException('InvalidArgumentException', "The function or method isn't being spied on.");
+            Pinkerton::stopSpyingOn('dummyFunction4');
+        })->should->throwException('InvalidArgumentException', "The dummyFunction4 function isn't being spied on.");
     }
 
     public function itShouldStopSpyingOnAFunction()
     {
-        $pinkerton = new Pinkerton();
-        $spy = $pinkerton->spyOn('dummyFunction3');
-        $pinkerton->stopSpyingOn('dummyFunction3');
+        $spy = Pinkerton::spyOn('dummyFunction3');
+        Pinkerton::stopSpyingOn('dummyFunction3');
 
         dummyFunction3();
 
