@@ -11,9 +11,9 @@ class Spy
     private $callThrough;
     private $fake;
 
-    public function __construct($callable)
+    public function __construct($callable = null)
     {
-        if ( ! is_callable($callable)) {
+        if ($callable && ! is_callable($callable)) {
             throw new \InvalidArgumentException("The function or method isn't callable.");
         }
 
@@ -34,7 +34,7 @@ class Spy
         $this->calls[] = $call;
         $this->mostRecentCall = $call;
 
-        if ($this->callThrough) {
+        if ($this->callable && $this->callThrough) {
             return call_user_func_array($this->callable, $arguments); 
         }
 

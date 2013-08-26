@@ -14,3 +14,8 @@ function stopSpyingOn($callable)
 {
     Pinkerton::stopSpyingOn($callable);
 }
+
+function createSpy()
+{
+    return new Phuedx\Pinkerton\Spy();
+}

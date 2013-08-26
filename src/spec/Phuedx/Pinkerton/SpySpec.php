@@ -134,4 +134,16 @@ class DescribeSpy extends \PHPSpec\Context
             return $spy->andCallFake(function () {});
         })->should->be($spy);
     }
+
+    public function itShouldntThrowIfTheCallableIsntGiven()
+    {
+        new Spy();
+    }
+
+    public function itShouldntTriggerAnErrorIfTheCallableIsntGivenAndCallingThroughToTheCallable()
+    {
+        $spy = new Spy();
+        $spy->andCallThrough();
+        $spy();
+    }
 }
