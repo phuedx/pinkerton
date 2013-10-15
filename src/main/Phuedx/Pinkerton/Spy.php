@@ -62,4 +62,11 @@ class Spy
 
         return $this;
     }
+
+    public function andReturn($value)
+    {
+        $this->andCallFake(function () use ($value) {
+            return $value;
+        });
+    }
 }

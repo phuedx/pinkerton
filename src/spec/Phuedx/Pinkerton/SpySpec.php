@@ -146,4 +146,11 @@ class DescribeSpy extends \PHPSpec\Context
         $spy->andCallThrough();
         $spy();
     }
+
+    public function itShouldReturnTheValue()
+    {
+        $spy = new Spy();
+        $spy->andReturn('it should return the value');
+        $this->spec($spy())->should->be('it should return the value');
+    }
 }
