@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "php": ">= 5.3"
+        "php": ">= 5.3",
+        "ext-runkit": "*"
     },
     "require-dev": {
         "phpspec/phpspec": "1.4.2"
