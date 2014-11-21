@@ -50,4 +50,4 @@ class FooTest extends PHPUnit_Framework_TestCase
 
 ## License
 
-**Pinkerton** is licensed under the MIT license and is copyright (c) 2012-2013 Sam Smith. See the LICENSE file for full copyright and license information.
+**Pinkerton** is licensed under the MIT license and is copyright (c) 2012-2014 Sam Smith. See the LICENSE file for full copyright and license information.

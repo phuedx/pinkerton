@@ -1,14 +1,14 @@
 {
     "name": "phuedx/pinkerton",
     "type": "library",
-    "description": "Emulating Jasmine's `spyOn` function with runkit.",
+    "description": "Emulating Jasmine's `spyOn` function with UOPZ.",
     "keywords": ["test", "testing", "spy", "spies"],
     "homepage": "https://github.com/phuedx/pinkerton",
     "license": "MIT",
     "authors": [
         {
             "name": "Sam Smith",
-            "email": "samuel.david.smith@gmail.com",
+            "email": "yo@samsmith.io",
             "homepage": "https://github.com/phuedx"
         }
     ],
