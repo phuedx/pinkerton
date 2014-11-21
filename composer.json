@@ -20,6 +20,6 @@
         "phpspec/phpspec": "1.4.2"
     },
     "autoload": {
-        "files": ["src/main/pinkerton.php"]
+        "files": ["src/pinkerton.php"]
     }
 }
