@@ -17,7 +17,8 @@
         "ext-runkit": "*"
     },
     "require-dev": {
-        "phpspec/phpspec": "1.4.2"
+        "phpspec/phpspec": "1.4.2",
+        "phpunit/phpunit": "~4.3"
     },
     "autoload": {
         "files": ["src/pinkerton.php"]
