@@ -17,15 +17,16 @@ class Pinkerton
 
     private static function spyOnMethod($function) {
         list($class, $method) = $function;
-        $methodString = "{$class}::{$method}";
+        $className = is_object($class) ? get_class($class) : $class;
+        $methodString = "{$className}::{$method}";
 
-        if ( ! method_exists($class, $method)) {
+        if ( ! method_exists($className, $method)) {
             throw new \InvalidArgumentException("The {$methodString} method doesn't exist.");
         }
 
         $spy = new Spy($function);
         $handler = self::createHandler($spy);
-        uopz_function($class, $method, $handler);
+        uopz_function($className, $method, $handler);
 
         self::$investigations[$methodString] = true;
 
@@ -66,13 +67,14 @@ class Pinkerton
     private static function stopSpyingOnMethod($function)
     {
         list($class, $method) = $function;
-        $methodString = "{$class}::{$method}";
+        $className = is_object($class) ? get_class($class) : $class;
+        $methodString = "{$className}::{$method}";
 
         if ( ! isset(self::$investigations[$methodString])) {
             throw new \InvalidArgumentException("The {$methodString} method isn't being spied on.");
         }
 
-        uopz_restore($class, $method);
+        uopz_restore($className, $method);
     }
 
     private static function stopSpyingOnFunction($function)

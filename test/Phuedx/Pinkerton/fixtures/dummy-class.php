@@ -11,4 +11,9 @@ class DummyClass1
     {
         return 'DummyClass1::dummyMethod2';
     }
+
+    public function dummyMethod3()
+    {
+        return 'DummyClass1::dummyMethod3';
+    }
 }

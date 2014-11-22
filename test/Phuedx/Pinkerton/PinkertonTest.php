@@ -109,4 +109,27 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($spy->callCount, 0);
     }
+
+    public function test_it_should_spy_on_a_method_specifed_by_an_instance_of_a_class()
+    {
+        $dummyClass = new \DummyClass1();
+        $method = array($dummyClass, 'dummyMethod3');
+        $spy = Pinkerton::spyOn($method);
+
+        $dummyClass->dummyMethod3();
+
+        $this->assertEquals($spy->callCount, 1);
+    }
+
+    public function test_it_should_stop_spying_on_a_method_specified_by_an_instance_of_a_class()
+    {
+        $dummyClass = new \DummyClass1();
+        $method = array($dummyClass, 'dummyMethod3');
+        $spy = Pinkerton::spyOn($method);
+        Pinkerton::stopSpyingOn($method);
+
+        $dummyClass->dummyMethod3();
+
+        $this->assertEquals($spy->callCount, 0);
+    }
 }
