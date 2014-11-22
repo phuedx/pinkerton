@@ -1,9 +1,9 @@
 <?php
 
-namespace Test\Phuedx\Pinkerton;
+namespace test\Phuedx\Pinkerton;
 
-require_once __DIR__ . '/fixtures/dummy-functions.php';
-require_once __DIR__ . '/fixtures/dummy-class.php';
+require_once __DIR__.'/fixtures/dummy-functions.php';
+require_once __DIR__.'/fixtures/dummy-class.php';
 
 use Phuedx\Pinkerton\Pinkerton;
 
@@ -33,11 +33,11 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
 
         dummyFunction2('foo', 'bar');
 
-        $this->assertEquals($spy->calls, array(
-            array(
-                'args' => array('foo', 'bar'),
-            ),
-        ));
+        $this->assertEquals($spy->calls, [
+            [
+                'args' => ['foo', 'bar'],
+            ],
+        ]);
     }
 
     /**
@@ -65,12 +65,12 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
      */
     public function test_it_should_throw_when_trying_to_spy_on_a_method_that_doesnt_exist()
     {
-        Pinkerton::spyOn(array('DummyClass1', 'dummyMethod0'));
+        Pinkerton::spyOn(['DummyClass1', 'dummyMethod0']);
     }
 
     public function test_it_should_spy_on_a_method()
     {
-        $spy = Pinkerton::spyOn(array('DummyClass1', 'dummyMethod1'));
+        $spy = Pinkerton::spyOn(['DummyClass1', 'dummyMethod1']);
 
         \DummyClass1::dummyMethod1();
 
@@ -79,15 +79,15 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_should_pass_the_method_arguments_through_to_the_spy()
     {
-      $spy = Pinkerton::spyOn(array('DummyClass1', 'dummyMethod1'));
+        $spy = Pinkerton::spyOn(['DummyClass1', 'dummyMethod1']);
 
-      \DummyClass1::dummyMethod1('foo', 'bar');
+        \DummyClass1::dummyMethod1('foo', 'bar');
 
-      $this->assertEquals($spy->calls, array(
-          array(
-              'args' => array('foo', 'bar'),
-          ),
-      ));
+        $this->assertEquals($spy->calls, [
+          [
+              'args' => ['foo', 'bar'],
+          ],
+      ]);
     }
 
     /**
@@ -96,12 +96,12 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
      */
     public function test_it_should_throw_when_trying_to_stop_spying_on_a_method_that_isnt_being_spied_on()
     {
-        Pinkerton::stopSpyingOn(array('DummyClass1', 'dummyMethod2'));
+        Pinkerton::stopSpyingOn(['DummyClass1', 'dummyMethod2']);
     }
 
     public function test_it_should_stop_spying_on_a_method()
     {
-        $method = array('DummyClass1', 'dummyMethod1');
+        $method = ['DummyClass1', 'dummyMethod1'];
         $spy = Pinkerton::spyOn($method);
         Pinkerton::stopSpyingOn($method);
 
@@ -113,7 +113,7 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
     public function test_it_should_spy_on_a_method_specifed_by_an_instance_of_a_class()
     {
         $dummyClass = new \DummyClass1();
-        $method = array($dummyClass, 'dummyMethod3');
+        $method = [$dummyClass, 'dummyMethod3'];
         $spy = Pinkerton::spyOn($method);
 
         $dummyClass->dummyMethod3();
@@ -124,7 +124,7 @@ class PinkertonTest extends \PHPUnit_Framework_TestCase
     public function test_it_should_stop_spying_on_a_method_specified_by_an_instance_of_a_class()
     {
         $dummyClass = new \DummyClass1();
-        $method = array($dummyClass, 'dummyMethod3');
+        $method = [$dummyClass, 'dummyMethod3'];
         $spy = Pinkerton::spyOn($method);
         Pinkerton::stopSpyingOn($method);
 

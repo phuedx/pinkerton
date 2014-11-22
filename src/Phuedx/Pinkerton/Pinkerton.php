@@ -4,7 +4,7 @@ namespace Phuedx\Pinkerton;
 
 class Pinkerton
 {
-    private static $investigations = array();
+    private static $investigations = [];
 
     public static function spyOn($function)
     {
@@ -15,12 +15,13 @@ class Pinkerton
         return self::spyOnFunction($function);
     }
 
-    private static function spyOnMethod($function) {
+    private static function spyOnMethod($function)
+    {
         list($class, $method) = $function;
         $className = is_object($class) ? get_class($class) : $class;
         $methodString = "{$className}::{$method}";
 
-        if ( ! method_exists($className, $method)) {
+        if (! method_exists($className, $method)) {
             throw new \InvalidArgumentException("The {$methodString} method doesn't exist.");
         }
 
@@ -33,8 +34,9 @@ class Pinkerton
         return $spy;
     }
 
-    private static function spyOnFunction($function) {
-        if ( ! function_exists($function)) {
+    private static function spyOnFunction($function)
+    {
+        if (! function_exists($function)) {
             throw new \InvalidArgumentException("The {$function} function doesn't exist.");
         }
 
@@ -47,7 +49,8 @@ class Pinkerton
         return $spy;
     }
 
-    private static function createHandler($spy) {
+    private static function createHandler($spy)
+    {
         return function () use ($spy) {
             $arguments = func_get_args();
 
@@ -70,7 +73,7 @@ class Pinkerton
         $className = is_object($class) ? get_class($class) : $class;
         $methodString = "{$className}::{$method}";
 
-        if ( ! isset(self::$investigations[$methodString])) {
+        if (! isset(self::$investigations[$methodString])) {
             throw new \InvalidArgumentException("The {$methodString} method isn't being spied on.");
         }
 
@@ -79,7 +82,7 @@ class Pinkerton
 
     private static function stopSpyingOnFunction($function)
     {
-        if ( ! isset(self::$investigations[$function])) {
+        if (! isset(self::$investigations[$function])) {
             throw new \InvalidArgumentException("The {$function} function isn't being spied on.");
         }
 

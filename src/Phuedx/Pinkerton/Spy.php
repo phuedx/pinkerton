@@ -19,7 +19,7 @@ class Spy
 
         $this->callable = $callable;
         $this->callCount = 0;
-        $this->calls = array();
+        $this->calls = [];
         $this->callThrough = false;
     }
 
@@ -28,14 +28,14 @@ class Spy
         ++$this->callCount;
 
         $arguments = func_get_args();
-        $call = array(
+        $call = [
             'args' => $arguments,
-        );
+        ];
         $this->calls[] = $call;
         $this->mostRecentCall = $call;
 
         if ($this->callable && $this->callThrough) {
-            return call_user_func_array($this->callable, $arguments); 
+            return call_user_func_array($this->callable, $arguments);
         }
 
         if ($this->fake) {
@@ -54,7 +54,7 @@ class Spy
 
     public function andCallFake($fake)
     {
-        if ( ! is_callable($fake)) {
+        if (! is_callable($fake)) {
             throw new \InvalidArgumentException("The function or method isn't callable.");
         }
 
