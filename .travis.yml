@@ -1,17 +1,17 @@
 language: php
 
 php:
-  - 5.3
   - 5.4
+  - 5.5
 
 before_script:
-  # Runkit
-  - git clone https://github.com/zenovich/runkit.git
-  - sh -c "cd runkit && phpize && ./configure && make && sudo make install"
-  - echo "extension=runkit.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  # UOPZ
+  - git clone https://github.com/krakjoe/uopz.git
+  - sh -c "cd uopz && phpize && ./configure && make && sudo make install"
+  - echo "extension=uopz.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
   # Composer
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev
 
-script: php vendor/bin/phpspec.php src/spec --bootstrap src/spec/bootstrap.php
+script: vendor/bin/phpunit test/

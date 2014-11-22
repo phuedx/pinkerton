@@ -1,4 +1,4 @@
-# Pinkerton [![Build Status](https://secure.travis-ci.org/phuedx/pinkerton.png?branch=master)](http://travis-ci.org/phuedx/pinkerton)
+# Pinkerton [![Build Status](https://secure.travis-ci.org/phuedx/pinkerton.png?branch=master, develop)](http://travis-ci.org/phuedx/pinkerton)
 
 So you’re using a function in your code. Maybe it’s even an *internal* function. You’re crazy like that. It’s `microtime` isn’t it? You’re writing your tests and you want to make an assertion about how it’s called or stub its behaviour.
 
@@ -9,8 +9,6 @@ You should use **Pinkerton**.
 ## Spyin’
 
 ```php
-<?php
-
 function legacy_function($parameter1)
 {
     // Do all of the things.
@@ -31,6 +29,25 @@ $spy = spyOn('legacy_function')->andCallFake(function() {
 var_dump(legacy_function($legacyParameter)); // false
 ```
 
+## Testin’
+
+So you're writing a test for a method that accepts a `callable` argument. Wellp, you can pass in a **Pinkerton** spy, call the method, and then make some assertions.
+
+```php
+class FooTest extends PHPUnit_Framework_TestCase
+{
+    public function test_bar_should_call_the_callable()
+    {
+        $spy = createSpy();
+        $foo = new Foo();
+        $foo->bar($spy);
+        $this->assertEquals(1, $spy->callCount);
+    }
+}
+```
+
+
+
 ## License
 
-**Pinkerton** is licensed under the MIT license and is copyright (c) 2012-2013 Sam Smith. See the LICENSE file for full copyright and license information.
+**Pinkerton** is licensed under the MIT license and is copyright (c) 2012-2014 Sam Smith. See the LICENSE file for full copyright and license information.
