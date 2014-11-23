@@ -1,15 +1,15 @@
-# Pinkerton [![Build Status](https://secure.travis-ci.org/phuedx/pinkerton.png?branch=master, develop)](http://travis-ci.org/phuedx/pinkerton)
+# Pinkerton [![Build Status](https://secure.travis-ci.org/phuedx/pinkerton.png?branch=master,develop)](http://travis-ci.org/phuedx/pinkerton)
 
-So you’re using a function in your code. Maybe it’s even an *internal* function. You’re crazy like that. It’s `microtime` isn’t it? You’re writing your tests and you want to make an assertion about how it’s called or stub its behaviour.
+So you’re calling some legacy function. Maybe it’s even an *internal* function – it’s `microtime` isn’t it? You’re writing your tests and you want to make an assertion about how it’s called or stub its behaviour.
 
 You should use **Pinkerton**.
 
-**Pinkerton** allows you to spy on or stub the behaviour of functions using the [runkit](https://github.com/zenovich/runkit/) extension wrapped up in a port of [Jasmine's](http://pivotal.github.com/jasmine/) `spyOn` DSL.
+**Pinkerton** allows you to spy on or stub the behaviour of functions and methods using [**@krakjoe**'s UOPZ extension](https://github.com/krakjoe/uopz) wrapped up in a port of [Jasmine's](http://pivotal.github.com/jasmine/) `spyOn` function.
 
 ## Spyin’
 
 ```php
-function legacy_function($parameter1)
+function legacy_function($parameter)
 {
     // Do all of the things.
 }
@@ -31,7 +31,7 @@ var_dump(legacy_function($legacyParameter)); // false
 
 ## Testin’
 
-So you're writing a test for a method that accepts a `callable` argument. Wellp, you can pass in a **Pinkerton** spy, call the method, and then make some assertions.
+So you're writing a test for a method that accepts a `callable` argument. Wellp, you can pass in a **Pinkerton** spy, call the method with the spy as an argument, and then make some assertions about how it was called.
 
 ```php
 class FooTest extends PHPUnit_Framework_TestCase
@@ -41,12 +41,47 @@ class FooTest extends PHPUnit_Framework_TestCase
         $spy = createSpy();
         $foo = new Foo();
         $foo->bar($spy);
-        $this->assertEquals(1, $spy->callCount);
+        $this->assertEquals($spy->callCount, 1);
     }
 }
 ```
 
+## API
 
+```php
+/**
+ * Spies on the function or method.
+ *
+ * The function or method is replaced with a handler that will invoke a spy
+ * that wraps the original function or method.
+ *
+ * Note that when spying on a method, the method is replaced with the handler
+ * for all instances of the class.
+ *
+ * @param callable $function
+ * @return \Phuedx\Pinkerton\Spy The spy that will be invoked instead of the
+ *  function or method
+ */
+function spyOn($function) {}
+
+/**
+ * Stops spying on the function or method.
+ *
+ * The original function or method is restored but the spy is unaffected.
+ *
+ * @param callable $function
+ * @throws \InvalidArgumentException When the function or method isn't being
+ *  spied on
+ */
+function stopSpyingOn($function) {}
+
+/**
+ * Creates a spy that doesn't wrap a function or method.
+ *
+ * @return \Phuedx\Pinkerton\Spy
+ */
+function createSpy() {}
+```
 
 ## License
 
