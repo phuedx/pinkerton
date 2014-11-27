@@ -25,7 +25,10 @@ class Pinkerton
             throw new \InvalidArgumentException("The {$methodString} method doesn't exist.");
         }
 
-        $spy = new Spy($function);
+        $newMethodName = uniqid($method, true);
+        uopz_rename($className, $method, $newMethodName);
+
+        $spy = new Spy([$class, $newMethodName]);
         $handler = self::createHandler($spy);
         uopz_function($className, $method, $handler);
 
@@ -40,7 +43,10 @@ class Pinkerton
             throw new \InvalidArgumentException("The {$function} function doesn't exist.");
         }
 
-        $spy = new Spy($function);
+        $newFunctionName = uniqid($function, true);
+        uopz_rename($function, $newFunctionName);
+
+        $spy = new Spy($newFunctionName);
         $handler = self::createHandler($spy);
         uopz_function($function, $handler);
 
