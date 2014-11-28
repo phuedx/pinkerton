@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/Phuedx/Pinkerton/Spy.php';
-require_once __DIR__ . '/Phuedx/Pinkerton/Pinkerton.php';
+require_once __DIR__.'/Phuedx/Pinkerton/Spy.php';
+require_once __DIR__.'/Phuedx/Pinkerton/Pinkerton.php';
 
 use Phuedx\Pinkerton\Pinkerton;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Phuedx\Pinkerton;
+namespace test\Phuedx\Pinkerton;
 
 use Phuedx\Pinkerton\Spy;
 
@@ -42,11 +42,11 @@ class SpyTest extends \PHPUnit_Framework_TestCase
         $spy = new Spy('microtime');
         $spy(true);
 
-        $this->assertEquals($spy->calls, array(
-            array(
-                'args' => array(true),
-            ),
-        ));
+        $this->assertEquals($spy->calls, [
+            [
+                'args' => [true],
+            ],
+        ]);
     }
 
     public function test_it_shouldnt_call_through_to_the_callable_by_default()
@@ -88,7 +88,7 @@ class SpyTest extends \PHPUnit_Framework_TestCase
         $result = $spy(1, 'two');
 
         $this->assertEquals($result, 'it should call the fake.');
-        $this->assertEquals($arguments, array(1, 'two'));
+        $this->assertEquals($arguments, [1, 'two']);
     }
 
     public function test_it_shouldnt_have_a_most_recent_call_by_default()
@@ -105,7 +105,7 @@ class SpyTest extends \PHPUnit_Framework_TestCase
 
         $arguments = $spy->mostRecentCall['args'];
 
-        $this->assertEquals($arguments, array('three', 4));
+        $this->assertEquals($arguments, ['three', 4]);
     }
 
     public function test_it_should_replace_the_most_recent_call_when_invoked_more_than_once()
@@ -116,7 +116,7 @@ class SpyTest extends \PHPUnit_Framework_TestCase
 
         $arguments = $spy->mostRecentCall['args'];
 
-        $this->assertEquals($arguments, array('seven', 8));
+        $this->assertEquals($arguments, ['seven', 8]);
     }
 
     public function test_it_should_provide_a_fluent_interface()

@@ -4,30 +4,91 @@ namespace Phuedx\Pinkerton;
 
 class Pinkerton
 {
-    private static $investigations = array();
+    private static $investigations = [];
 
     public static function spyOn($function)
     {
-        if ( ! function_exists($function)) {
-            throw new \InvalidArgumentException("The {$function} function doesn't exist.");
+        if (is_array($function)) {
+            return self::spyOnMethod($function);
         }
 
-        $spy = new Spy($function);
-        $handler = function () use ($spy) {
-            $arguments = func_get_args();
+        return self::spyOnFunction($function);
+    }
 
-            return call_user_func_array($spy, $arguments);
-        };
-        uopz_function($function, $handler);
+    private static function spyOnMethod($function)
+    {
+        list($class, $method) = $function;
+        $className = is_object($class) ? get_class($class) : $class;
+        $methodString = "{$className}::{$method}";
 
-        self::$investigations[] = $function;
+        if (! method_exists($className, $method)) {
+            throw new \InvalidArgumentException("The {$methodString} method doesn't exist.");
+        }
+
+        $newMethodName = uniqid($method, true);
+        uopz_rename($className, $method, $newMethodName);
+
+        $spy = new Spy([$class, $newMethodName]);
+        $handler = self::createHandler($spy);
+        uopz_function($className, $method, $handler);
+
+        self::$investigations[$methodString] = true;
 
         return $spy;
     }
 
+    private static function spyOnFunction($function)
+    {
+        if (! function_exists($function)) {
+            throw new \InvalidArgumentException("The {$function} function doesn't exist.");
+        }
+
+        $newFunctionName = uniqid($function, true);
+        uopz_rename($function, $newFunctionName);
+
+        $spy = new Spy($newFunctionName);
+        $handler = self::createHandler($spy);
+        uopz_function($function, $handler);
+
+        self::$investigations[$function] = true;
+
+        return $spy;
+    }
+
+    private static function createHandler($spy)
+    {
+        return function () use ($spy) {
+            $arguments = func_get_args();
+
+            return call_user_func_array($spy, $arguments);
+        };
+    }
+
     public static function stopSpyingOn($function)
     {
-        if ( ! in_array($function, self::$investigations)) {
+        if (is_array($function)) {
+            return self::stopSpyingOnMethod($function);
+        }
+
+        return self::stopSpyingOnFunction($function);
+    }
+
+    private static function stopSpyingOnMethod($function)
+    {
+        list($class, $method) = $function;
+        $className = is_object($class) ? get_class($class) : $class;
+        $methodString = "{$className}::{$method}";
+
+        if (! isset(self::$investigations[$methodString])) {
+            throw new \InvalidArgumentException("The {$methodString} method isn't being spied on.");
+        }
+
+        uopz_restore($className, $method);
+    }
+
+    private static function stopSpyingOnFunction($function)
+    {
+        if (! isset(self::$investigations[$function])) {
             throw new \InvalidArgumentException("The {$function} function isn't being spied on.");
         }
 
