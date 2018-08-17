@@ -4,7 +4,7 @@ So you’re calling some legacy function. Maybe it’s even an *internal* functi
 
 You should use **Pinkerton**.
 
-**Pinkerton** allows you to spy on or stub the behaviour of functions and methods using [**@krakjoe**'s UOPZ extension](https://github.com/krakjoe/uopz) wrapped up in a port of [Jasmine's](http://pivotal.github.com/jasmine/) `spyOn` function.
+**Pinkerton** allows you to spy on or stub the behaviour of functions and methods using [**@krakjoe**'s UOPZ extension](https://github.com/krakjoe/uopz) wrapped up in a port of [Jasmine's](https://jasmine.github.io/) `spyOn` function.
 
 ## Spyin’
 
